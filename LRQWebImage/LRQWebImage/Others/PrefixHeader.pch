@@ -1,0 +1,80 @@
+//=************************ silence ***
+#ifndef SLPrefix_pch
+#define SLPrefix_pch
+
+#ifdef __OBJC__
+
+//引入网络工具类
+
+/**
+ *  通知宏
+ */
+#define MSLChannelViewModelNotification @"MSLChannelViewModelNotification"
+#define MSLJumpNotification @"MSLJumpNotification"
+/**
+ *  channel cell label text font
+ */
+#define channelFontN 15
+#define channelFontS 18
+
+/**
+ *  使用masonry的时候,定义的两个宏,用来省略mas_前缀.
+ */
+#define MAS_SHORTHAND
+
+#define MAS_SHORTHAND_GLOBALS
+
+/**
+ *  masonry的头文件引入写到该注释下面.
+ */
+
+
+/**
+ *  主屏幕的宽和高
+ */
+#define kSCREENWIDTH [UIScreen mainScreen].bounds.size.width
+#define kSCREENHEIGHT [UIScreen mainScreen].bounds.size.height
+
+
+
+//=****** NSLog宏  ****************** silence ***
+#ifdef DEBUG
+
+/**
+ *  打印宏,能够输出该log所在的文件,行,时间等信息.
+ */
+#define NSLog(FORMAT, ...) do{fprintf(stderr, "%s <%s> -> %d :%s\n", [[[[NSDate date] dateByAddingTimeInterval:[[NSTimeZone systemTimeZone] secondsFromGMTForDate:[NSDate date]]].description substringWithRange:NSMakeRange(11, 8)] UTF8String],[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);}while(0)
+
+#else
+
+#define NSLog
+
+#endif
+
+//=************************ silence ***
+
+/**
+ *  可以快速打印CGRect,CGSize,CGPoint 等信息.
+ */
+#define NSLogRect(rect) NSLog(@"%s x:%.4f, y:%.4f, w:%.4f, h:%.4f", #rect, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height)
+
+#define NSLogSize(size) NSLog(@"%s w:%.4f, h:%.4f", #size, size.width, size.height)
+
+#define NSLogPoint(point) NSLog(@"%s x:%.4f, y:%.4f", #point, point.x, point.y)
+
+//=************************ silence ***
+/**
+ *  快速生成RGB颜色
+ *
+ *  @param R red
+ *  @param G green
+ *  @param B blue
+ */
+#define SLRGBColor(R, G, B) [UIColor colorWithRed:(R)/255.0 green:(G)/255.0 blue:(B)/255.0 alpha:1.0]
+#define SLPRGBColor(R, G, B) [UIColor colorWithRed:R green:G blue:B alpha:1.0]
+
+//=******   ****************** silence ***
+
+#endif
+#endif /* SLPrefix_pch */
+//23.41

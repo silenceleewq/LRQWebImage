@@ -1,0 +1,5 @@
+SDWebImage库仿写: 
+SDImageCache 未实现功能如下: 
+1. - (UIImage *)diskImageForKey:(NSString *)key 方法中的: 
+	根据data来进行图片类型(gif,png,jpeg)的处理.
+	根据scale来缩放图片和压缩.
