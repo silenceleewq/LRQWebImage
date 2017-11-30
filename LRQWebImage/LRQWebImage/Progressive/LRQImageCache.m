@@ -318,7 +318,47 @@ FOUNDATION_STATIC_INLINE NSUInteger LRQCacheCostForImage(UIImage *image) {
     
 }
 
+- (void)removeImageForKey:(NSString *)key
+{
+    [self removeImageForKey:key withCompletion:nil];
+}
 
+- (void)removeImageForKey:(NSString *)key withCompletion:(LRQWebImageNoParamsBlock)completion {
+    [self removeImageForKey:key fromDisk:YES withCompletion:completion];
+}
+
+- (void)removeImageForKey:(NSString *)key fromDisk:(BOOL)fromDisk
+{
+    [self removeImageForKey:key fromDisk:fromDisk withCompletion:nil];
+}
+
+- (void)removeImageForKey:(NSString *)key fromDisk:(BOOL)fromDisk withCompletion:(LRQWebImageNoParamsBlock)completion {
+    if (!key) {
+        return;
+    }
+    
+    //首先判断是否需要从内存中移除图片
+    if (self.shouldCacheImagesInMemory) {
+        [self.memCache removeObjectForKey:key];
+    }
+    
+    //再判断fromDisk
+    if (fromDisk) {
+        dispatch_async(_ioQueue, ^{
+            NSString *path = [self defualtCachePathForkey:key];
+            [_fileManager removeItemAtPath:path error:nil];
+            
+            if (completion) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion();
+                });
+            }
+        });
+    } else if (completion) {
+        completion();
+    }
+    
+}
 
 @end
 

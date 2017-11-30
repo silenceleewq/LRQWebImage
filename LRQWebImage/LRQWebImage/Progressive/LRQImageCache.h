@@ -55,4 +55,41 @@ typedef void(^LRQWebImageNoParamsBlock)(void);
 - (void)removeImageForKey:(NSString *)key fromDisk:(BOOL)fromDisk;
 
 - (void)removeImageForKey:(NSString *)key fromDisk:(BOOL)fromDisk withCompletion:(LRQWebImageNoParamsBlock)completion;
+
+- (void)clearMemory;
+
+//清除所有的缓存图片. 非阻塞式, completionBlock可选
+- (void)clearDiskOnCompletion:(LRQWebImageNoParamsBlock)completionBlock;
+
+//清除disk上所有的缓存图片.
+- (void)clearDisk;
+
+//清除disk上所有过期的缓存图片, 非阻塞式.
+- (void)cleanDiskWithCompletionBlock:(LRQWebImageNoParamsBlock)completionBlock;
+
+- (void)cleanDisk;
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
