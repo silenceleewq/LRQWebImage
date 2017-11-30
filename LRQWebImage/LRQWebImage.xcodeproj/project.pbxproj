@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1F056CAC1FCD9DD500650E58 /* LRQImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F056CAB1FCD9DD500650E58 /* LRQImageCache.m */; };
+		1F056CF11FCFD38C00650E58 /* LRQWebImageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F056CF01FCFD38C00650E58 /* LRQWebImageTests.m */; };
 		1F31DA161FCD7B0300732A7B /* LRQImageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F31DA151FCD7B0300732A7B /* LRQImageTableView.m */; };
 		1F31DA191FCD7B1400732A7B /* LRQImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F31DA181FCD7B1400732A7B /* LRQImageTableViewCell.m */; };
 		1F6297311FCC083D0091D578 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6297301FCC083D0091D578 /* AppDelegate.m */; };
@@ -24,9 +25,22 @@
 		1F6297651FCD53860091D578 /* ImageList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F6297641FCD53860091D578 /* ImageList.plist */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		1F056CF31FCFD38C00650E58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F6297241FCC083D0091D578 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F62972B1FCC083D0091D578;
+			remoteInfo = LRQWebImage;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		1F056CAA1FCD9DD500650E58 /* LRQImageCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LRQImageCache.h; sourceTree = "<group>"; };
 		1F056CAB1FCD9DD500650E58 /* LRQImageCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LRQImageCache.m; sourceTree = "<group>"; };
+		1F056CEE1FCFD38C00650E58 /* LRQWebImageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LRQWebImageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F056CF01FCFD38C00650E58 /* LRQWebImageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LRQWebImageTests.m; sourceTree = "<group>"; };
+		1F056CF21FCFD38C00650E58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F31DA141FCD7B0300732A7B /* LRQImageTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LRQImageTableView.h; sourceTree = "<group>"; };
 		1F31DA151FCD7B0300732A7B /* LRQImageTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LRQImageTableView.m; sourceTree = "<group>"; };
 		1F31DA171FCD7B1400732A7B /* LRQImageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LRQImageTableViewCell.h; sourceTree = "<group>"; };
@@ -57,6 +71,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1F056CEB1FCFD38C00650E58 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1F6297291FCC083D0091D578 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -67,6 +88,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F056CEF1FCFD38C00650E58 /* LRQWebImageTests */ = {
+			isa = PBXGroup;
+			children = (
+				1F056CF01FCFD38C00650E58 /* LRQWebImageTests.m */,
+				1F056CF21FCFD38C00650E58 /* Info.plist */,
+			);
+			path = LRQWebImageTests;
+			sourceTree = "<group>";
+		};
 		1F31DA131FCD7A8700732A7B /* ListView */ = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				1F62972E1FCC083D0091D578 /* LRQWebImage */,
+				1F056CEF1FCFD38C00650E58 /* LRQWebImageTests */,
 				1F62972D1FCC083D0091D578 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				1F62972C1FCC083D0091D578 /* LRQWebImage.app */,
+				1F056CEE1FCFD38C00650E58 /* LRQWebImageTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -153,6 +185,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1F056CED1FCFD38C00650E58 /* LRQWebImageTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F056CF71FCFD38C00650E58 /* Build configuration list for PBXNativeTarget "LRQWebImageTests" */;
+			buildPhases = (
+				1F056CEA1FCFD38C00650E58 /* Sources */,
+				1F056CEB1FCFD38C00650E58 /* Frameworks */,
+				1F056CEC1FCFD38C00650E58 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1F056CF41FCFD38C00650E58 /* PBXTargetDependency */,
+			);
+			name = LRQWebImageTests;
+			productName = LRQWebImageTests;
+			productReference = 1F056CEE1FCFD38C00650E58 /* LRQWebImageTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		1F62972B1FCC083D0091D578 /* LRQWebImage */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F6297421FCC083D0091D578 /* Build configuration list for PBXNativeTarget "LRQWebImage" */;
@@ -180,6 +230,11 @@
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = lirenqiang;
 				TargetAttributes = {
+					1F056CED1FCFD38C00650E58 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 1F62972B1FCC083D0091D578;
+					};
 					1F62972B1FCC083D0091D578 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -200,11 +255,19 @@
 			projectRoot = "";
 			targets = (
 				1F62972B1FCC083D0091D578 /* LRQWebImage */,
+				1F056CED1FCFD38C00650E58 /* LRQWebImageTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1F056CEC1FCFD38C00650E58 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1F62972A1FCC083D0091D578 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -219,6 +282,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1F056CEA1FCFD38C00650E58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F056CF11FCFD38C00650E58 /* LRQWebImageTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1F6297281FCC083D0091D578 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -238,6 +309,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1F056CF41FCFD38C00650E58 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1F62972B1FCC083D0091D578 /* LRQWebImage */;
+			targetProxy = 1F056CF31FCFD38C00650E58 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1F6297351FCC083D0091D578 /* Main.storyboard */ = {
@@ -259,6 +338,36 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1F056CF51FCFD38C00650E58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B5G9R9WR6W;
+				INFOPLIST_FILE = LRQWebImageTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.myOwn.LRQWebImageTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LRQWebImage.app/LRQWebImage";
+			};
+			name = Debug;
+		};
+		1F056CF61FCFD38C00650E58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B5G9R9WR6W;
+				INFOPLIST_FILE = LRQWebImageTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.myOwn.LRQWebImageTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LRQWebImage.app/LRQWebImage";
+			};
+			name = Release;
+		};
 		1F6297401FCC083D0091D578 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -396,6 +505,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1F056CF71FCFD38C00650E58 /* Build configuration list for PBXNativeTarget "LRQWebImageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F056CF51FCFD38C00650E58 /* Debug */,
+				1F056CF61FCFD38C00650E58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1F6297271FCC083D0091D578 /* Build configuration list for PBXProject "LRQWebImage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
