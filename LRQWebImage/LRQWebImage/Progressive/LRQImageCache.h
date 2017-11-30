@@ -73,6 +73,8 @@ typedef void(^LRQWebImageNoParamsBlock)(void);
 - (void)cleanDiskWithCompletionBlock:(LRQWebImageNoParamsBlock)completionBlock;
 
 - (void)cleanDisk;
+
+
 @end
 
 

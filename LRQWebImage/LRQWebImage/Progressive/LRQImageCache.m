@@ -108,6 +108,23 @@ FOUNDATION_STATIC_INLINE NSUInteger LRQCacheCostForImage(UIImage *image) {
         });
         
         //添加通知
+        
+#if TARGET_OS_IOS
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(clearMemory)
+                                                     name:UIApplicationDidReceiveMemoryWarningNotification
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(cleanDisk)
+                                                     name:UIApplicationWillTerminateNotification
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(backgroundCleanDisk)
+                                                     name:UIApplicationDidEnterBackgroundNotification
+                                                   object:nil];
+#endif
     }
     
     return self;
@@ -303,7 +320,7 @@ FOUNDATION_STATIC_INLINE NSUInteger LRQCacheCostForImage(UIImage *image) {
         @autoreleasepool {
             UIImage *diskImage = [self diskImageForKey:key];
             
-            if (diskImage && self.shouldCacheImagesInMemory) {
+            if (diskImage && self.shouldCacheImagesInMemory) { //当执行了removeAllObjects后,就无法再添加对象到cache里面了.
                 NSUInteger cost = LRQCacheCostForImage(diskImage);
                 [self.memCache setObject:diskImage forKey:key cost:cost];
             }
@@ -474,6 +491,30 @@ FOUNDATION_STATIC_INLINE NSUInteger LRQCacheCostForImage(UIImage *image) {
             });
         }
     });
+}
+
+
+/**
+ 当应用程序退到后台的时候进行缓存清理
+ */
+- (void)backgroundCleanDisk
+{
+    Class applicationClass = NSClassFromString(@"UIApplication");
+    if (!applicationClass && ![applicationClass respondsToSelector:@selector(sharedApplication)]) {
+        return;
+    }
+    
+    UIApplication *application = [applicationClass performSelector:@selector(sharedApplication)];
+    
+    __block UIBackgroundTaskIdentifier bgTaskId = [application beginBackgroundTaskWithExpirationHandler:^{
+        [application endBackgroundTask:bgTaskId];
+        bgTaskId = UIBackgroundTaskInvalid;
+    }];
+    
+    [self cleanDiskWithCompletionBlock:^{
+        [application endBackgroundTask:bgTaskId];
+        bgTaskId = UIBackgroundTaskInvalid;
+    }];
 }
 
 @end
