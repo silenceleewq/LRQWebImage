@@ -262,7 +262,7 @@ didReceiveResponse:(NSURLResponse *)response
 {
     //开始接收数据,对数据进行拼接.
     [self.imageData appendData:data];
-    NSLog(@"data.length: %zd", data.length);
+    NSLog(@"URLSession: didReceiveData");
     // 如果开启了 progressive 选项, expectedSize大于0,并且实现了completedBlock,那么就生成图片,调用completedBlock
     if ((self.options & LRQWebImageDownloaderProgressiveDownload) && (self.expectedSize > 0) && self.completedBlock) {
         UIImage *image = [UIImage imageWithData:self.imageData];

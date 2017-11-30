@@ -309,7 +309,7 @@ FOUNDATION_STATIC_INLINE NSUInteger LRQCacheCostForImage(UIImage *image) {
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                doneBlock(image, LRQImageCacheTypeDisk);
+                doneBlock(diskImage, LRQImageCacheTypeDisk);
             });
         }
         

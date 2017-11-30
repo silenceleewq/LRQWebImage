@@ -77,7 +77,6 @@ static LRQWebImageDownloader *_downloader = nil;
     request.HTTPShouldUsePipelining = YES;
     
     operation = [[self.operationClass alloc] initWithRequest:request inSession:self.session options:LRQWebImageDownloaderProgressiveDownload progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-        NSLog(@"receivedSize: %zd, expectedSize: %zd", receivedSize, expectedSize);
     } completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
         if (error) {
             completedBlock(nil, nil, error, YES);
