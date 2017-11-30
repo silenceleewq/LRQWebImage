@@ -27,7 +27,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
 }
 @end
-
+static const NSInteger kDefaultCacheMaxAge = 60 * 60 * 24 * 7;
 static unsigned char kPNGSignatureBytes[8] = {0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A};
 static NSData *kPNGSignatureData = nil;
 BOOL ImageDataHasPNGPreffix(NSData *data)
@@ -90,7 +90,7 @@ FOUNDATION_STATIC_INLINE NSUInteger LRQCacheCostForImage(UIImage *image) {
         //实例化memCache
         _memCache = [[AutoPurgeCache alloc] init];
         _memCache.name = fullNameSpace;
-        
+        _maxCacheAge = kDefaultCacheMaxAge;
         _shouldCacheImagesInMemory = YES;
         kPNGSignatureData = [NSData dataWithBytes:kPNGSignatureBytes length:8];
         
@@ -344,7 +344,7 @@ FOUNDATION_STATIC_INLINE NSUInteger LRQCacheCostForImage(UIImage *image) {
     
     //再判断fromDisk
     if (fromDisk) {
-        dispatch_async(_ioQueue, ^{
+        dispatch_async(self.ioQueue, ^{
             NSString *path = [self defualtCachePathForkey:key];
             [_fileManager removeItemAtPath:path error:nil];
             
@@ -358,6 +358,122 @@ FOUNDATION_STATIC_INLINE NSUInteger LRQCacheCostForImage(UIImage *image) {
         completion();
     }
     
+}
+
+- (void)clearMemory
+{
+    [self.memCache removeAllObjects];
+}
+
+- (void)clearDisk
+{
+    [self clearDiskOnCompletion:nil];
+}
+
+- (void)clearDiskOnCompletion:(LRQWebImageNoParamsBlock)completionBlock
+{
+    //异步的,将cachePath路径删除掉,然后再重新创建路径,最后回到主线程调用completionBlock.
+    dispatch_async(self.ioQueue, ^{
+        [_fileManager removeItemAtPath:self.diskCachePath error:nil];
+        [_fileManager createDirectoryAtPath:self.diskCachePath
+                withIntermediateDirectories:YES
+                                 attributes:nil
+                                      error:nil];
+        
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock();
+            });
+        }
+    });
+}
+
+
+
+- (void)cleanDisk {
+    [self cleanDiskWithCompletionBlock:nil];
+}
+
+- (void)cleanDiskWithCompletionBlock:(LRQWebImageNoParamsBlock)completionBlock
+{
+    
+    //首先是一个开启异步任务.
+    dispatch_async(self.ioQueue, ^{
+        //获取cachePath的URL
+        NSURL *diskCacheURL = [NSURL fileURLWithPath:self.diskCachePath];
+        //设置一个fileURL的key.
+        NSArray *resourceKeys = @[NSURLIsDirectoryKey, NSURLContentModificationDateKey, NSURLTotalFileSizeKey];
+        //根据key拿到一个valuesDiction
+        NSDirectoryEnumerator *fileEnumerator = [_fileManager enumeratorAtURL:diskCacheURL
+                                                   includingPropertiesForKeys:resourceKeys
+                                                                      options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                                 errorHandler:NULL];
+        
+        //计算从今天开始,第几天前创建的文件属于过期文件.
+        NSDate *expirationDate = [NSDate dateWithTimeIntervalSinceNow:-self.maxCacheAge];
+        NSMutableDictionary *cacheFiles = [NSMutableDictionary dictionary];
+        NSInteger currentCacheSize = 0;
+        
+        //遍历fileEnumerator有两个功能
+        //1. 清理过期的缓存图片.
+        //2. 基于图片大小的清除功能来存储文件属性.
+        NSMutableArray *urlsToDelete = [NSMutableArray array];
+        for (NSURL *fileURL in fileEnumerator) {
+            //首先根据resourceKey拿到该图片的属性.
+            NSDictionary *resourceValues = [fileURL resourceValuesForKeys:resourceKeys error:nil];
+            //判断是否是一个文件夹
+            if ([resourceValues[NSURLIsDirectoryKey] boolValue]) {
+                continue;
+            }
+            //根据图片的最后修改日期和过期日期进行对比.过期的图片,加入到CacheFiles里面. continue
+            if ([resourceValues[NSURLContentModificationDateKey] laterDate:expirationDate] == expirationDate) {
+                [urlsToDelete addObject:fileURL];
+                continue;
+            }
+            
+            //没有过期的图片,计算图片大小
+            NSNumber *cacheFileSize = resourceValues[NSURLTotalFileAllocatedSizeKey];
+            currentCacheSize += [cacheFileSize unsignedIntegerValue];
+            [cacheFiles setObject:resourceValues forKey:fileURL];
+        }
+        
+        //删除过期图片URL.
+        for (NSURL *url in urlsToDelete) {
+            [_fileManager removeItemAtURL:url error:NULL];
+        }
+        
+        //如果磁盘里的缓存大小超过了我们设置的最大值,我们开始执行基于缓存大小的缓存清理机制.
+        if (self.maxCacheSize > 0 && currentCacheSize > self.maxCacheSize) {
+            //清理后的大小为指定大小的一般
+            //这样做的原因可能是怕刚清理完,结果又缓存了,又要立马清理了.嗯.肯定是这样.
+            NSInteger desireSize = self.maxCacheSize / 2;
+            //对cachedFiles进行一下排序
+            NSArray *sortedFileURL = [cacheFiles keysSortedByValueWithOptions:NSSortConcurrent usingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                return [obj1[NSURLContentModificationDateKey] compare:obj2[NSURLContentModificationDateKey]];
+            }];
+            
+            //对排序好了的数组进行forin循环. 挨个删除,然后计算剩下的cachesize.
+            for (NSURL *fileURL in sortedFileURL) {
+                //删除
+                [_fileManager removeItemAtURL:fileURL error:NULL];
+                
+                //计算剩下的cacheSize
+                NSDictionary *resourceValues = cacheFiles[fileURL];
+                NSNumber *totalAllocatedSize = resourceValues[NSURLTotalFileAllocatedSizeKey];
+                currentCacheSize -= [totalAllocatedSize unsignedIntegerValue];
+                
+                if (currentCacheSize < desireSize) {
+                    break;
+                }
+            }
+        }
+        
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock();
+            });
+        }
+    });
 }
 
 @end

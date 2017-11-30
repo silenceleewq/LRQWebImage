@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F056CAC1FCD9DD500650E58 /* LRQImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F056CAB1FCD9DD500650E58 /* LRQImageCache.m */; };
 		1F056CF11FCFD38C00650E58 /* LRQWebImageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F056CF01FCFD38C00650E58 /* LRQWebImageTests.m */; };
+		1F056CF91FCFD4AF00650E58 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F056CF81FCFD4AF00650E58 /* placeholder.png */; };
 		1F31DA161FCD7B0300732A7B /* LRQImageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F31DA151FCD7B0300732A7B /* LRQImageTableView.m */; };
 		1F31DA191FCD7B1400732A7B /* LRQImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F31DA181FCD7B1400732A7B /* LRQImageTableViewCell.m */; };
 		1F6297311FCC083D0091D578 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6297301FCC083D0091D578 /* AppDelegate.m */; };
@@ -41,6 +42,7 @@
 		1F056CEE1FCFD38C00650E58 /* LRQWebImageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LRQWebImageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F056CF01FCFD38C00650E58 /* LRQWebImageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LRQWebImageTests.m; sourceTree = "<group>"; };
 		1F056CF21FCFD38C00650E58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F056CF81FCFD4AF00650E58 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		1F31DA141FCD7B0300732A7B /* LRQImageTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LRQImageTableView.h; sourceTree = "<group>"; };
 		1F31DA151FCD7B0300732A7B /* LRQImageTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LRQImageTableView.m; sourceTree = "<group>"; };
 		1F31DA171FCD7B1400732A7B /* LRQImageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LRQImageTableViewCell.h; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 		1F056CEF1FCFD38C00650E58 /* LRQWebImageTests */ = {
 			isa = PBXGroup;
 			children = (
+				1F056CF81FCFD4AF00650E58 /* placeholder.png */,
 				1F056CF01FCFD38C00650E58 /* LRQWebImageTests.m */,
 				1F056CF21FCFD38C00650E58 /* Info.plist */,
 			);
@@ -265,6 +268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F056CF91FCFD4AF00650E58 /* placeholder.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

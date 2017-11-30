@@ -25,6 +25,11 @@ typedef void(^LRQWebImageNoParamsBlock)(void);
 
 @property (assign, nonatomic) BOOL shouldCacheImagesInMemory;
 
+@property (assign, nonatomic) NSUInteger maxCacheSize;
+
+//缓存存储最长时间 单位 秒/seconds
+@property (assign, nonatomic) NSInteger maxCacheAge;
+
 + (LRQImageCache *)sharedImageCache;
 
 - (id)initWithNamespace:(NSString *)ns;
