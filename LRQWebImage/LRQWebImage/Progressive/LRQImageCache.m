@@ -10,6 +10,7 @@
 #import <CommonCrypto/CommonDigest.h>
 
 @interface AutoPurgeCache: NSCache
+
 @end
 
 @implementation AutoPurgeCache
@@ -27,9 +28,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
 }
 @end
+
 static const NSInteger kDefaultCacheMaxAge = 60 * 60 * 24 * 7;
 static unsigned char kPNGSignatureBytes[8] = {0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A};
 static NSData *kPNGSignatureData = nil;
+
 BOOL ImageDataHasPNGPreffix(NSData *data)
 {
     NSUInteger pngSignatureLength = [kPNGSignatureData length];
@@ -515,6 +518,73 @@ FOUNDATION_STATIC_INLINE NSUInteger LRQCacheCostForImage(UIImage *image) {
         [application endBackgroundTask:bgTaskId];
         bgTaskId = UIBackgroundTaskInvalid;
     }];
+}
+
+- (NSUInteger)getSize
+{
+    __block NSUInteger size = 0;
+    dispatch_sync(self.ioQueue, ^{
+        //根据 缓存路径获取一个NSDirectoryEnumerator对象,
+        NSDirectoryEnumerator *directoryEnumerator = [_fileManager enumeratorAtPath:self.diskCachePath];
+        
+        //forin遍历 上面的对象,获取每个文件的名称.根据路径,拼接文件路径.
+        for (NSString *fileName in directoryEnumerator) {
+            NSString *filePath = [self.diskCachePath stringByAppendingPathComponent:fileName];
+            NSDictionary *attr = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:NULL];
+            //获取文件的属性,通过属性获取size.
+            size += [attr fileSize];
+        }
+    });
+    
+    return size;
+}
+
+- (NSUInteger)getDiskCount
+{
+    __block NSUInteger count = 0;
+    dispatch_sync(self.ioQueue, ^{
+        NSDirectoryEnumerator *fileEnumerator = [_fileManager enumeratorAtPath:self.diskCachePath];
+        count = [[fileEnumerator allObjects] count];
+    });
+    return count;
+}
+
+- (void)calculateSizeWithCompletion:(LRQCalculateSizeBlock)completionBlock
+{
+    NSURL *diskCacheURL = [NSURL fileURLWithPath:self.diskCachePath];
+    
+    dispatch_async(self.ioQueue, ^{
+        NSDirectoryEnumerator *directory = [_fileManager enumeratorAtURL:diskCacheURL
+           includingPropertiesForKeys:@[NSURLFileSizeKey]
+                              options:NSDirectoryEnumerationSkipsHiddenFiles
+                         errorHandler:NULL];
+        NSUInteger fileSize = 0;
+        NSUInteger count = 0;
+        for (NSURL *fileURL in directory) {
+            NSNumber *size;
+            [fileURL getResourceValue:&size forKey:NSURLFileSizeKey error:NULL];
+            fileSize += [size unsignedIntegerValue];
+            count++;
+        }
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(count, fileSize);
+            });
+        }
+    });
+}
+
+- (BOOL)diskImageExistsWithKey:(NSString *)key
+{
+    NSString *filePath = [self cachePathForKey:key inPath:self.diskCachePath];
+    
+    BOOL exist = [[NSFileManager defaultManager] fileExistsAtPath:filePath];
+    
+    if (!exist) {
+        exist = [[NSFileManager defaultManager] fileExistsAtPath:[filePath stringByDeletingPathExtension]];
+    }
+    
+    return exist;
 }
 
 @end

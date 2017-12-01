@@ -70,6 +70,7 @@
 		1F62975C1FCD44A50091D578 /* LRQWebImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LRQWebImageManager.h; sourceTree = "<group>"; };
 		1F62975D1FCD44A50091D578 /* LRQWebImageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LRQWebImageManager.m; sourceTree = "<group>"; };
 		1F6297641FCD53860091D578 /* ImageList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ImageList.plist; sourceTree = "<group>"; };
+		1F6920CE1FD04AF700EEDD89 /* LRQWebImageOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LRQWebImageOperation.h; path = LRQWebImage/LRQWebImageOperation.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +164,7 @@
 				1F62975D1FCD44A50091D578 /* LRQWebImageManager.m */,
 				1F056CAA1FCD9DD500650E58 /* LRQImageCache.h */,
 				1F056CAB1FCD9DD500650E58 /* LRQImageCache.m */,
+				1F6920CE1FD04AF700EEDD89 /* LRQWebImageOperation.h */,
 			);
 			path = Progressive;
 			sourceTree = "<group>";

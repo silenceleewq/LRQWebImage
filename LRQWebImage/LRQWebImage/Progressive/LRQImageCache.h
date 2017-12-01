@@ -20,6 +20,7 @@ typedef NS_ENUM(NSUInteger, LRQImageCacheType) {
 
 typedef void(^LRQWebImageQueryCompletedBlock)(UIImage *image, LRQImageCacheType cacheType);
 typedef void(^LRQWebImageNoParamsBlock)(void);
+typedef void(^LRQCalculateSizeBlock)(NSUInteger fileCount, NSUInteger totalSize);
 
 @interface LRQImageCache : NSObject
 
@@ -35,6 +36,8 @@ typedef void(^LRQWebImageNoParamsBlock)(void);
 - (id)initWithNamespace:(NSString *)ns;
 
 - (id)initWithNamespace:(NSString *)ns diskCacheDirectory:(NSString *)directory;
+
+-(NSString *)makeDiskCachePath:(NSString*)fullNamespace;
 
 - (void)storeImage:(UIImage *)image forKey:(NSString *)key;
 
@@ -74,7 +77,13 @@ typedef void(^LRQWebImageNoParamsBlock)(void);
 
 - (void)cleanDisk;
 
+- (NSUInteger)getSize;
 
+- (NSUInteger)getDiskCount;
+
+- (void)calculateSizeWithCompletion:(LRQCalculateSizeBlock)completionBlock;
+
+- (BOOL)diskImageExistsWithKey:(NSString *)key;
 @end
 
 

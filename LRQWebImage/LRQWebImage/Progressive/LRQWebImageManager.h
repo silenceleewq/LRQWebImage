@@ -34,8 +34,7 @@ typedef void(^LRQWebImageCompletionWithFinishedBlock)(UIImage *image, NSError *e
 
 @interface LRQWebImageManager : NSObject
 
-@property (strong, nonatomic) LRQImageCache *imageCache;
-@property (strong, nonatomic) LRQWebImageDownloader *imageDownloader;
+
 @property (copy, nonatomic) LRQWebImageCacheKeyFilterBlock filterBlock;
 
 + (instancetype)sharedManager;

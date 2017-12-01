@@ -11,6 +11,8 @@
 #import "UIImageView+LRQWebCache.h"
 #import "LRQImageTableView.h"
 #import "LRQImageTableViewCell.h"
+#import "LRQImageCache.h"
+
 
 NSString *str = @"http://www.firsthdwallpapers.com/uploads/2013/05/Free-Hd-Wallpapers-1080p-3.jpg";
 
@@ -26,7 +28,14 @@ NSString *str = @"http://www.firsthdwallpapers.com/uploads/2013/05/Free-Hd-Wallp
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addTableView];
+    
+    NSLog(@"size: %zd",[[LRQImageCache sharedImageCache] getSize]);
+    NSLog(@"count: %zd",[[LRQImageCache sharedImageCache] getDiskCount]);
+    [[LRQImageCache sharedImageCache] calculateSizeWithCompletion:^(NSUInteger fileCount, NSUInteger totalSize) {
+        NSLog(@"size: %zd, count: %zd", totalSize, fileCount);
+    }];
 }
+
 
 - (void)viewDidAppear:(BOOL)animated
 {

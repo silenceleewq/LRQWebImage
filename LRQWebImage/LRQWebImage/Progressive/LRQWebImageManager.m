@@ -7,12 +7,21 @@
 //
 
 /**
- 
+    增加对operation的管理.
  */
 
 #import "LRQWebImageManager.h"
+#import "LRQWebImageOperation.h"
+@interface  LRQImageCombinedOperation: NSObject <LRQWebImageOperation>
+
+@end
 
 @interface LRQWebImageManager ()
+
+@property (strong, nonatomic) LRQImageCache *imageCache;
+@property (strong, nonatomic) LRQWebImageDownloader *imageDownloader;
+@property (strong, nonatomic) NSSet *failedURLs;
+@property (strong, nonatomic) NSMutableArray *runningOperations;
 
 @end
 
@@ -38,6 +47,8 @@
     if (self) {
         _imageCache = cache;
         _imageDownloader = downloader;
+        _failedURLs = [NSSet new];
+        _runningOperations = [NSMutableArray array];
     }
     return self;
 }
