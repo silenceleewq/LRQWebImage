@@ -27,6 +27,7 @@ typedef NS_OPTIONS(NSUInteger, LRQWebImageOptions) {
     LRQWebImageFailedRetry = 1 << 0,
     LRQWebImageCacheMemoryOnly = 1 << 2,
     LRQWebImageProgressiveDownload = 1 << 3,
+    LRQWebImageRefreshCached = 1 << 4,
 };
 
 typedef NSString *(^LRQWebImageCacheKeyFilterBlock)(NSURL *url);

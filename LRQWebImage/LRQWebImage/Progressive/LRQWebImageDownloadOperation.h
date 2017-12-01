@@ -42,7 +42,7 @@ extern NSString *const LRQWebImageDownloadFinishNotification;
  @param cancelBlock         the block executed if the download (operation) is cancelled.
  @return the initialized instance
  */
-- (id)initWithRequest:(NSURLRequest *)request
+- (id <LRQWebImageOperation>)initWithRequest:(NSURLRequest *)request
             inSession:(NSURLSession *)session
               options:(LRQWebImageDownloaderOptions)options
              progress:(LRQWebImageDownloaderProgressBlock)progressBlock

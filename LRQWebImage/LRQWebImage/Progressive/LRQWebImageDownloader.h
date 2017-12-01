@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "LRQWebImageOperation.h"
 
 extern NSString *const LRQWebImageErrorDomain;
 
@@ -27,7 +28,7 @@ typedef void(^LRQWebImageDownloaderNoParamsBlock)(void);
 
 + (instancetype)sharedDonwloader;
 
-- (void)downloadImageWithURL:(NSURL *)url options:(LRQWebImageDownloaderOptions)options progress:(LRQWebImageDownloaderProgressBlock)progressBlock completed:(LRQWebImageDownloaderCompletedBlock)completedBlock;
+- (id <LRQWebImageOperation>)downloadImageWithURL:(NSURL *)url options:(LRQWebImageDownloaderOptions)options progress:(LRQWebImageDownloaderProgressBlock)progressBlock completed:(LRQWebImageDownloaderCompletedBlock)completedBlock;
 
 @end
 

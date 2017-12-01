@@ -41,7 +41,7 @@ NSString *const LRQWebImageDownloadFinishNotification = @"LRQWebImageDownloadFin
 @synthesize executing = _executing;
 @synthesize finished = _finished;
 
-- (id)initWithRequest:(NSURLRequest *)request
+- (id <LRQWebImageOperation>)initWithRequest:(NSURLRequest *)request
             inSession:(NSURLSession *)session
               options:(LRQWebImageDownloaderOptions)options
              progress:(LRQWebImageDownloaderProgressBlock)progressBlock

@@ -6,6 +6,7 @@
 //  Copyright © 2017年 lirenqiang. All rights reserved.
 //
 
+
 #import "LRQWebImageDownloader.h"
 #import "LRQWebImageDownloadOperation.h"
 NSString *const LRQWebImageErrorDomain = @"LRQWebImageErrorDomain";
@@ -50,27 +51,7 @@ static LRQWebImageDownloader *_downloader = nil;
     return self;
 }
 
-//- (void)downloadImageWithURL:(NSURL *)url completed:(LRQWebImageDownloaderCompletedBlock)completed
-//{
-//    __block LRQWebImageDownloadOperation *operation;
-//    
-//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-//    request.HTTPShouldUsePipelining = YES;
-//    
-//    operation = [[self.operationClass alloc] initWithRequest:request inSession:self.session options:LRQWebImageDownloaderProgressiveDownload progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-//        NSLog(@"receivedSize: %zd, expectedSize: %zd", receivedSize, expectedSize);
-//    } completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
-//        if (error) {
-//            completed(nil, nil, error, YES);
-//        } else {
-//            completed(image, data, nil, YES);
-//        }
-//    } cancelled:nil];
-//    
-//    [self.downloadQueue addOperation:operation];
-//}
-
-- (void)downloadImageWithURL:(NSURL *)url options:(LRQWebImageDownloaderOptions)options progress:(LRQWebImageDownloaderProgressBlock)progressBlock completed:(LRQWebImageDownloaderCompletedBlock)completedBlock {
+- (id <LRQWebImageOperation>)downloadImageWithURL:(NSURL *)url options:(LRQWebImageDownloaderOptions)options progress:(LRQWebImageDownloaderProgressBlock)progressBlock completed:(LRQWebImageDownloaderCompletedBlock)completedBlock {
     __block LRQWebImageDownloadOperation *operation;
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
@@ -86,6 +67,8 @@ static LRQWebImageDownloader *_downloader = nil;
     } cancelled:nil];
     
     [self.downloadQueue addOperation:operation];
+    
+    return operation;
 }
 
 - (LRQWebImageDownloadOperation *)operationWithTask:(NSURLSessionTask *)task
