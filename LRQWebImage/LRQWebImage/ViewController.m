@@ -28,7 +28,7 @@ NSString *str = @"http://www.firsthdwallpapers.com/uploads/2013/05/Free-Hd-Wallp
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addTableView];
-    
+    NSLog(@"%@", NSHomeDirectory());
     NSLog(@"size: %zd",[[LRQImageCache sharedImageCache] getSize]);
     NSLog(@"count: %zd",[[LRQImageCache sharedImageCache] getDiskCount]);
     [[LRQImageCache sharedImageCache] calculateSizeWithCompletion:^(NSUInteger fileCount, NSUInteger totalSize) {

@@ -13,6 +13,6 @@
 
 - (void)lrq_setImageWithURL:(NSURL *)url;
 
-- (void)lrq_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(LRQWebImageOptions)options progress:(LRQWebImageDownloaderProgressBlock)progressBlock completed:(LRQWebImageDownloaderCompletedBlock)completedBlock;
+- (void)lrq_setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(LRQWebImageOptions)options progress:(LRQWebImageDownloaderProgressBlock)progressBlock completed:(LRQWebImageCompletionWithFinishedBlock)completedBlock;
 
 @end

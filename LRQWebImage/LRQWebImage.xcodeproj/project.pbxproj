@@ -24,6 +24,7 @@
 		1F62975B1FCD42150091D578 /* UIImageView+LRQWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F62975A1FCD42150091D578 /* UIImageView+LRQWebCache.m */; };
 		1F62975E1FCD44A50091D578 /* LRQWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F62975D1FCD44A50091D578 /* LRQWebImageManager.m */; };
 		1F6297651FCD53860091D578 /* ImageList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F6297641FCD53860091D578 /* ImageList.plist */; };
+		1F6920D11FD1298A00EEDD89 /* UIView+LRQWebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6920D01FD1298A00EEDD89 /* UIView+LRQWebCacheOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,8 @@
 		1F62975D1FCD44A50091D578 /* LRQWebImageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LRQWebImageManager.m; sourceTree = "<group>"; };
 		1F6297641FCD53860091D578 /* ImageList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ImageList.plist; sourceTree = "<group>"; };
 		1F6920CE1FD04AF700EEDD89 /* LRQWebImageOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LRQWebImageOperation.h; path = LRQWebImage/LRQWebImageOperation.h; sourceTree = SOURCE_ROOT; };
+		1F6920CF1FD1298A00EEDD89 /* UIView+LRQWebCacheOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+LRQWebCacheOperation.h"; sourceTree = "<group>"; };
+		1F6920D01FD1298A00EEDD89 /* UIView+LRQWebCacheOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+LRQWebCacheOperation.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +168,8 @@
 				1F056CAA1FCD9DD500650E58 /* LRQImageCache.h */,
 				1F056CAB1FCD9DD500650E58 /* LRQImageCache.m */,
 				1F6920CE1FD04AF700EEDD89 /* LRQWebImageOperation.h */,
+				1F6920CF1FD1298A00EEDD89 /* UIView+LRQWebCacheOperation.h */,
+				1F6920D01FD1298A00EEDD89 /* UIView+LRQWebCacheOperation.m */,
 			);
 			path = Progressive;
 			sourceTree = "<group>";
@@ -302,6 +307,7 @@
 			files = (
 				1F056CAC1FCD9DD500650E58 /* LRQImageCache.m in Sources */,
 				1F62975B1FCD42150091D578 /* UIImageView+LRQWebCache.m in Sources */,
+				1F6920D11FD1298A00EEDD89 /* UIView+LRQWebCacheOperation.m in Sources */,
 				1F62974E1FCC0D810091D578 /* UIView+LRQFrame.m in Sources */,
 				1F62975E1FCD44A50091D578 /* LRQWebImageManager.m in Sources */,
 				1F31DA161FCD7B0300732A7B /* LRQImageTableView.m in Sources */,

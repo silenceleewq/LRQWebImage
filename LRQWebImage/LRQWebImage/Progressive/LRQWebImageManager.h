@@ -42,7 +42,7 @@ typedef void(^LRQWebImageCompletionWithFinishedBlock)(UIImage *image, NSError *e
 
 - (instancetype)initWithCache:(LRQImageCache *)cache downloader:(LRQWebImageDownloader *)downloader;
 
-- (void)downloadImageWithURL:(NSURL *)url
+- (id <LRQWebImageOperation>)downloadImageWithURL:(NSURL *)url
                      options:(LRQWebImageOptions)options
                     progress:(LRQWebImageDownloaderProgressBlock)progressBlock
                    completed:(LRQWebImageCompletionWithFinishedBlock)completedBlock;
